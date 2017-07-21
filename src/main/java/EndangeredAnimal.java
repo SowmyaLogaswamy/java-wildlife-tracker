@@ -48,6 +48,7 @@ public class EndangeredAnimal extends Animal{
     return id;
   }
 
+
   @Override
   public boolean equals(Object otherEndangeredAnimal) {
     if(!(otherEndangeredAnimal instanceof EndangeredAnimal)) {

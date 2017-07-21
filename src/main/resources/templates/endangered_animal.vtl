@@ -3,33 +3,14 @@
 <h1>$endangeredAnimal.getName()</h1>
 <h3>ID: $endangeredAnimal.getId()</h3>
 
-
 #if($endangeredAnimal.getSightings().size() == 0)
   <p>To report a sighting, please visit the <a href="/">home page</a>.</p>
 #else
-<div class="divTable">
-  <div class="divTableBody">
-    <div class="divTableRow">
-      <div class="divTableCell">Location</div>
-      <div class="divTableCell">Date</div>
-      <div class="divTableCell">Health</div>
-      <div class="divTableCell">Age</div>
-      <div class="divTableCell">Ranger</div>
-      <div class="divTableCell">Sighting Id</div>
-    </div>
-
-
-
   #foreach($sighting in $endangeredAnimal.getSightings())
-  <div class="divTableRow">
-    <div class="divTableCell">$sighting.getLocation()</div>
-    <div class="divTableCell">$sighting.getDate()</div>
-    <div class="divTableCell">$endangeredAnimal.getHealth()</div>
-    <div class="divTableCell">$endangeredAnimal.getAge()</div>
-    <div class="divTableCell">$sighting.getRangerName()</div>
-    <div class="divTableCell">$sighting.getId()</div>
-  </div>
+    Location: <strong>$sighting.getLocation()</strong>
+    Health: $endangeredAnimal.getHealth()
+    Age: $endangeredAnimal.getAge()
+    Reported by: $sighting.getRangerName()
+    ID: $sighting.getId()
   #end
-  </div>
-  </div>
 #end
