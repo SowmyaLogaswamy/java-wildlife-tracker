@@ -14,7 +14,8 @@ public class App {
     get("/", (request, response) -> {
       Map<String, Object> model = new HashMap<String, Object>();
       model.put("animals", Animal.all());
-      model.put("endangeredAnimals", EndangeredAnimal.all());
+      model.put("endangeredAnimals", EndangeredAnimal.allEndangeredAnimals());
+      //model.put("animals", Animal.all());
       model.put("sightings", Sighting.all());
       model.put("template", "templates/index.vtl");
       return new ModelAndView(model, layout);
@@ -91,7 +92,7 @@ public class App {
     get("/endangered_animal/:id", (request, response) -> {
       Map<String, Object> model = new HashMap<String, Object>();
       EndangeredAnimal endangeredAnimal = EndangeredAnimal.find(Integer.parseInt(request.params("id")));
-      model.put("endangeredAnimal", endangeredAnimal);
+      model.put("endangeredAnimal", endangeredAnimal.all());
       model.put("template", "templates/endangered_animal.vtl");
       return new ModelAndView(model, layout);
     }, new VelocityTemplateEngine());

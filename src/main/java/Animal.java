@@ -1,7 +1,7 @@
 import org.sql2o.*;
 import java.util.ArrayList;
 import java.util.List;
-
+//included abstract class
 public class Animal {
   public String name;
   public int id;
@@ -19,13 +19,15 @@ public class Animal {
     return id;
   }
 
+//added thid.getId
   @Override
   public boolean equals(Object otherAnimal) {
     if(!(otherAnimal instanceof Animal)) {
       return false;
     } else {
       Animal newAnimal = (Animal) otherAnimal;
-      return this.getName().equals(newAnimal.getName());
+      return this.getId() == newAnimal.getId() &&
+      this.getName().equals(newAnimal.getName());
     }
   }
 
@@ -44,8 +46,12 @@ public class Animal {
       String sql = "SELECT * FROM animals;";
       return con.createQuery(sql)
         .executeAndFetch(Animal.class);
-    }
+
+  //   String sql2 = "SELECT * FROM endangered_animals INNER JOIN animals;";
+  //   return con.createQuery(sql2)
+  //     .executeAndFetch(EndangeredAnimal.class);
   }
+}
 
   public static Animal find(int id) {
     try(Connection con = DB.sql2o.open()) {
