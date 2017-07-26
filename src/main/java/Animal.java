@@ -5,10 +5,12 @@ import java.util.List;
 public class Animal {
   public String name;
   public int id;
+  public boolean isEndangered;
 
   public Animal(String name) {
     this.name = name;
     this.id = id;
+    this.isEndangered = false;
   }
 
   public String getName() {
@@ -19,6 +21,9 @@ public class Animal {
     return id;
   }
 
+  public boolean getIsEndangered() {
+    return isEndangered;
+  }
 //added thid.getId
   @Override
   public boolean equals(Object otherAnimal) {
@@ -33,7 +38,7 @@ public class Animal {
 
   public void save() {
     try(Connection con = DB.sql2o.open()) {
-      String sql = "INSERT INTO animals (name) VALUES (:name);";
+      String sql = "INSERT INTO animals (name,isEndangered) VALUES (:name, false) ;";
       this.id = (int) con.createQuery(sql, true)
         .addParameter("name", this.name)
         .executeUpdate()
@@ -43,7 +48,7 @@ public class Animal {
 
   public static List<Animal> all() {
     try(Connection con = DB.sql2o.open()) {
-      String sql = "SELECT * FROM animals;";
+      String sql = "SELECT name,id FROM animals WHERE isEndangered=false";
       return con.createQuery(sql)
         .executeAndFetch(Animal.class);
 
@@ -55,7 +60,7 @@ public class Animal {
 
   public static Animal find(int id) {
     try(Connection con = DB.sql2o.open()) {
-      String sql = "SELECT * FROM animals WHERE id=:id;";
+      String sql = "SELECT name,id FROM animals WHERE id=:id";
       Animal animal = con.createQuery(sql)
         .addParameter("id", id)
         .executeAndFetchFirst(Animal.class);
@@ -88,8 +93,8 @@ public class Animal {
         List<Sighting> sightings = con.createQuery(sql)
           .addParameter("id", id)
           .executeAndFetch(Sighting.class);
+
       return sightings;
     }
   }
-
 }
