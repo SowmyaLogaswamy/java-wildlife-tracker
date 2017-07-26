@@ -25,8 +25,8 @@ public class EndangeredAnimalTest {
   public void save_assignsIdAndSavesObjectToDatabase() {
     EndangeredAnimal testEndangeredAnimal = new EndangeredAnimal("Fox", "Healthy", "Young");
     testEndangeredAnimal.save();
-    EndangeredAnimal savedEndangeredAnimal = EndangeredAnimal.all().get(0);
-    assertEquals(testEndangeredAnimal.getId(), savedEndangeredAnimal.getId());
+    EndangeredAnimal savedAnimal = EndangeredAnimal.allEndangeredAnimals().get(0);
+    assertEquals(testEndangeredAnimal.getId(), savedAnimal.getId());
   }
 
   @Test
@@ -35,8 +35,8 @@ public class EndangeredAnimalTest {
     firstEndangeredAnimal.save();
     EndangeredAnimal secondEndangeredAnimal = new EndangeredAnimal("Badger", "Okay", "Adult");
     secondEndangeredAnimal.save();
-    assertEquals(true, EndangeredAnimal.all().get(0).equals(firstEndangeredAnimal));
-    assertEquals(true, EndangeredAnimal.all().get(1).equals(secondEndangeredAnimal));
+    assertTrue(EndangeredAnimal.allEndangeredAnimals().contains(firstEndangeredAnimal));
+    assertTrue(EndangeredAnimal.allEndangeredAnimals().contains(secondEndangeredAnimal));
   }
 
   @Test
